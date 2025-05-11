@@ -16,7 +16,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 dependencies = [
-    "mu-pipelines-interfaces >=0.1.4",
+    "mu-pipelines-interfaces >=0.2.0a0",
 ]
 dynamic = ["version"]
 

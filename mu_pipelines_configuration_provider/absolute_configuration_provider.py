@@ -7,6 +7,7 @@ from mu_pipelines_interfaces.config_types.global_properties.global_properties im
     GlobalProperties,
 )
 from mu_pipelines_interfaces.config_types.job_config import JobConfigItem
+from mu_pipelines_interfaces.config_types.secrets.secrets_config import SecretsConfig
 from mu_pipelines_interfaces.configuration_provider import ConfigurationProvider
 
 from mu_pipelines_configuration_provider.read_config import (
@@ -21,16 +22,19 @@ class AbsoluteConfigurationProvider(ConfigurationProvider):
     _job_config_path: str
     _global_properties_path: str
     _connection_config_path: str
+    _secrets_config_path: str
 
     def __init__(
         self,
         job_config_path: str,
         global_properties_path: str,
         connection_config_path: str,
+        secrets_config_path: str,
     ):
         self._job_config_path = job_config_path
         self._global_properties_path = global_properties_path
         self._connection_config_path = connection_config_path
+        self._secrets_config_path = secrets_config_path
 
     def load_job_supporting_artifact(
         self, relative_artifact: str, content_type: Type[TSuppFileType]
@@ -50,3 +54,7 @@ class AbsoluteConfigurationProvider(ConfigurationProvider):
     @property
     def connection_config(self) -> ConnectionProperties:
         return read_config(self._connection_config_path, ConnectionProperties)
+
+    @property
+    def secrets_config(self) -> SecretsConfig:
+        return read_config(self._secrets_config_path, SecretsConfig)

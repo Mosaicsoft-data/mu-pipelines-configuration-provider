@@ -16,6 +16,7 @@ def configuration_factory() -> ConfigurationProvider:
     parser.add_argument(
         "--connection-properties", type=str, help="path to connection-properties"
     )
+    parser.add_argument("--secrets-config", type=str, help="path to secrets-config")
 
     args = parser.parse_args()
 
@@ -23,4 +24,5 @@ def configuration_factory() -> ConfigurationProvider:
         getattr(args, "job-config"),
         getattr(args, "global_properties"),
         getattr(args, "connection_properties"),
+        getattr(args, "secrets-config"),
     )

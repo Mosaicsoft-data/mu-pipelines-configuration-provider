@@ -13,6 +13,7 @@ def test_AbsoluteConfigurationProvider():
         job_config_path="test/test_job_config.json",
         global_properties_path="test/test_global_properties.json",
         connection_config_path="test/test_connection_properties.json",
+        secrets_config_path="test/test_secrets_config.json",
     )
 
     assert config_provider.job_config[0]["execution"][0]["type"] == "IngestCSV"
@@ -22,12 +23,15 @@ def test_AbsoluteConfigurationProvider():
 
     assert config_provider.connection_config["connections"][0]["type"] == "postgres"
 
+    assert config_provider.secrets_config["secrets"][0]["provider"] == "hardcoded"
+
 
 def test_AbsoluteConfigurationProvider_load_supporting_artifact():
     config_provider: ConfigurationProvider = AbsoluteConfigurationProvider(
         job_config_path="test/test_job_config.json",
         global_properties_path="test/test_global_properties.json",
         connection_config_path="test/test_connection_properties.json",
+        secrets_config_path="test/test_secrets_config.json",
     )
 
     supporting_artifact: GlobalProperties | None = (

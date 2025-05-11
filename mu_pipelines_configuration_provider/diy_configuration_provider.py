@@ -7,6 +7,7 @@ from mu_pipelines_interfaces.config_types.global_properties.global_properties im
     GlobalProperties,
 )
 from mu_pipelines_interfaces.config_types.job_config import JobConfigItem
+from mu_pipelines_interfaces.config_types.secrets.secrets_config import SecretsConfig
 from mu_pipelines_interfaces.configuration_provider import ConfigurationProvider
 
 TSuppFileType = TypeVar("TSuppFileType")
@@ -18,16 +19,19 @@ class DIYConfigurationProvider(ConfigurationProvider):
     _job_config: list[JobConfigItem]
     _global_properties: GlobalProperties
     _connection_config: ConnectionProperties
+    _secrets_config: SecretsConfig
 
     def __init__(
         self,
         job_config: list[JobConfigItem],
         global_properties: GlobalProperties,
         connection_config: ConnectionProperties,
+        secrets_config: SecretsConfig,
     ):
         self._job_config = job_config
         self._global_properties = global_properties
         self._connection_config = connection_config
+        self._secrets_config = secrets_config
 
     def load_job_supporting_artifact(
         self, relative_artifact: str, content_type: Type[TSuppFileType]
@@ -45,3 +49,7 @@ class DIYConfigurationProvider(ConfigurationProvider):
     @property
     def connection_config(self) -> ConnectionProperties:
         return self._connection_config
+
+    @property
+    def secrets_config(self) -> SecretsConfig:
+        return self._secrets_config
